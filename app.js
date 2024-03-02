@@ -122,6 +122,7 @@ app.post("/upload", upload.fields([{ name: "logFile" }]), async (req, res) => {
     })
     .catch((error) => {
       console.error("Error:", error.message);
+      return res.status(400).json(error);
     })
     .finally(async () => {
       // Delete temporary files after processing
