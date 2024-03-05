@@ -38,6 +38,7 @@ app.post("/upload", upload.fields([{ name: "logFile" }]), async (req, res) => {
   // You can now access the uploaded files using req.files['configFile'] and req.files['logFile']
   console.log(req.files);
 
+  try {
   // Read the files as streams
   const logFileStream = fs.createReadStream(req.files.logFile[0].path);
   //const confFileStream = fs.createReadStream(req.files.configFile[0].path);
@@ -132,7 +133,11 @@ app.post("/upload", upload.fields([{ name: "logFile" }]), async (req, res) => {
       } catch (err) {
         console.error("Error deleting temporary files:", err.message);
       }
-    });
+    });}
+    catch (error) {
+      console.error("Error", error.message);
+      return res.status(400).json(error)
+    }
 });
 
 const PORT = process.env.PORT || 8080;
