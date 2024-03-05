@@ -31,8 +31,8 @@ const upload = multer({ storage: storage });
 
 // Single file upload route
 app.post("/upload", upload.fields([{ name: "logFile" }]), async (req, res) => {
-  if (!req.files) {
-    return res.status(400).send("No files were uploaded.");
+  if (!req.files || !req.files.logFile) {
+    return res.status(400).send("Please upload a log file");
   }
 
   // You can now access the uploaded files using req.files['configFile'] and req.files['logFile']
